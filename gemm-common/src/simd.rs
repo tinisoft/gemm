@@ -1809,7 +1809,6 @@ pub mod aarch64 {
     use super::*;
     use core::arch::aarch64::*;
     use core::arch::asm;
-    #[allow(unused_imports)]
     use core::mem::transmute;
     use core::mem::MaybeUninit;
     use core::ptr;
@@ -1933,6 +1932,7 @@ pub mod aarch64 {
 
     /// Floating point multiplication
     /// [doc](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/FMUL--vector-)
+    #[target_feature(enable = "fp16")]
     #[inline]
     pub unsafe fn vmulq_f16(a: float16x8_t, b: float16x8_t) -> float16x8_t {
         let result: float16x8_t;
@@ -1947,6 +1947,7 @@ pub mod aarch64 {
 
     /// Floating point addition
     /// [doc](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/FADD--vector-)
+    #[target_feature(enable = "fp16")]
     #[inline]
     pub unsafe fn vaddq_f16(a: float16x8_t, b: float16x8_t) -> float16x8_t {
         let result: float16x8_t;
@@ -1960,6 +1961,7 @@ pub mod aarch64 {
     }
 
     /// Fused multiply add [doc](https://developer.arm.com/documentation/dui0801/g/A64-SIMD-Vector-Instructions/FMLA--vector-)
+    #[target_feature(enable = "fp16")]
     #[inline]
     pub unsafe fn vfmaq_f16(mut a: float16x8_t, b: float16x8_t, c: float16x8_t) -> float16x8_t {
         asm!(
@@ -1971,6 +1973,7 @@ pub mod aarch64 {
         a
     }
 
+    #[target_feature(enable = "fp16")]
     #[inline]
     pub unsafe fn vfmaq_laneq_f16<const LANE: i32>(
         mut a: float16x8_t,
